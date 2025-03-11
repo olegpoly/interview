@@ -2,6 +2,7 @@ package code.interview.auth;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.AuthenticationResultType;
 
@@ -12,9 +13,12 @@ import static software.amazon.awssdk.services.cognitoidentityprovider.model.Chal
 @Service
 public class AuthService {
 
-  private final Logger log = LoggerFactory.getLogger(getClass());
+  private final Logger log = LoggerFactory.getLogger(AuthService.class);
 
+  @Autowired
   private SignInService cognitoService;
+
+  @Autowired
   private UserRepository repository;
 
   public SignInResponse signInUser(UserSignInRequest r) {
@@ -27,9 +31,7 @@ public class AuthService {
     }
 
     AuthenticationResultType result = response.authenticationResult();
-
     log.debug("Successful login");
-
     return new SignInResponse(result.accessToken(), result.idToken(), result.refreshToken(), result.expiresIn());
   }
 
