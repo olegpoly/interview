@@ -1,4 +1,4 @@
-package code.interview.auth;
+package code.interview.data;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

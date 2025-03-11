@@ -1,4 +1,4 @@
-package code.interview.auth;
+package code.interview.data;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -1,8 +1,9 @@
-package code.interview.migration;
+package code.interview.service;
 
-import code.interview.auth.SignInService;
-import code.interview.auth.User;
-import code.interview.auth.UserRepository;
+import code.interview.data.User;
+import code.interview.data.UserRepository;
+import code.interview.dto.migration.ErrResponse;
+import code.interview.dto.migration.MigrationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminCreateUserResponse;

@@ -1,5 +1,7 @@
-package code.interview.auth;
+package code.interview.service;
 
+import code.interview.data.User;
+import code.interview.dto.UserSignInRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

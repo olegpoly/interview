@@ -1,4 +1,4 @@
-package code.interview.auth;
+package code.interview.dto;
 
 public class UserSignInRequest {
     private String email;

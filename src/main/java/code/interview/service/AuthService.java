@@ -1,5 +1,9 @@
-package code.interview.auth;
+package code.interview.service;
 
+import code.interview.data.User;
+import code.interview.data.UserRepository;
+import code.interview.dto.SignInResponse;
+import code.interview.dto.UserSignInRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

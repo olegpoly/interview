@@ -1,4 +1,4 @@
-package code.interview.migration;
+package code.interview.dto.migration;
 
 import java.util.UUID;
 
