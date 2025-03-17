@@ -1,4 +1,4 @@
-package code.interview.service;
+package code.interview.service.auth;
 
 import code.interview.data.User;
 import code.interview.data.UserRepository;
