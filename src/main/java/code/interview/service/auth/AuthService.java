@@ -17,33 +17,36 @@ import static software.amazon.awssdk.services.cognitoidentityprovider.model.Chal
 @Service
 public class AuthService {
 
-  private final Logger log = LoggerFactory.getLogger(AuthService.class);
+    private final Logger log = LoggerFactory.getLogger(AuthService.class);
 
-  @Autowired
-  private SignInService cognitoService;
+    @Autowired
+    private SignInService cognitoService;
 
-  @Autowired
-  private UserRepository repository;
+    @Autowired
+    private UserRepository repository;
 
-  public SignInResponse signInUser(UserSignInRequest r) {
-    log.error("Authenticating user");
-    validate(r);
-    var response = cognitoService.signIn(r);
+    public SignInResponse signInUser(UserSignInRequest r) {
+        log.debug("Authenticating user");
+        validate(r);
+        var response = cognitoService.signIn(r);
 
-    if (response.challengeName() == NEW_PASSWORD_REQUIRED) {
-      throw new IllegalStateException("Invalid challenge type");
+        if (response != null) {
+            if (response.challengeName() == NEW_PASSWORD_REQUIRED) {
+                throw new IllegalStateException("Invalid challenge type");
+            }
+        }
+
+
+        AuthenticationResultType result = response.authenticationResult();
+        log.debug("Successful login");
+        return new SignInResponse(result.accessToken(), result.idToken(), result.refreshToken(), result.expiresIn());
     }
 
-    AuthenticationResultType result = response.authenticationResult();
-    log.debug("Successful login");
-    return new SignInResponse(result.accessToken(), result.idToken(), result.refreshToken(), result.expiresIn());
-  }
-
-  private void validate(UserSignInRequest signInRequest) {
-    Optional<User> user = repository.findByEmail(signInRequest.getEmail());
-    if (user.isPresent()) {
-      throw new IllegalStateException("User not found");
+    private void validate(UserSignInRequest signInRequest) {
+        Optional<User> user = repository.findByEmail(signInRequest.getEmail());
+        if (user.isEmpty()) {
+            throw new IllegalStateException("User not found");
+        }
     }
-  }
 
 }
